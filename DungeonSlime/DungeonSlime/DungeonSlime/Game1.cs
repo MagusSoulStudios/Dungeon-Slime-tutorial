@@ -52,9 +52,22 @@ public class Game1 : Core
         SpriteBatch.Begin();
 
         // Draw the logo
-        SpriteBatch.Draw(_logo, Vector2.Zero, Color.White);
-
-        // End the sprite bathc
+       SpriteBatch.Draw(
+        _logo,              // texture
+        new Vector2(        // position
+            Window.ClientBounds.Width,
+            Window.ClientBounds.Height) * 0.5f,
+        null,               // sourceRectangle
+        Color.White * 0.5f, // color
+        0.0f,               // rotation
+        new Vector2(        // origin
+            _logo.Width,
+            _logo.Height) * 0.5f,
+        1.0f,               // scale
+        SpriteEffects.None, // effects
+        0.0f
+    );
+    
         SpriteBatch.End();
 
         base.Draw(gameTime);
