@@ -1,15 +1,19 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Threading.Tasks.Dataflow;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameLibrary;
+using MonoGameLibrary.Graphics;
 
 namespace DungeonSlime;
 
 public class Game1 : Core
 {
+    //texture region that defines the slime sprite in the atlas
+    private TextureRegion _slime;
 
-    // The MonoGame Logo texture
-    private Texture2D _logo;
+    //texture region that defines the bat sprite in teh atlas.
+    private TextureRegion _bat;
 
     public Game1() : base("Dungeon Slime", 1280, 720, false)
     {
@@ -25,11 +29,16 @@ public class Game1 : Core
 
     protected override void LoadContent()
     {
-           // TODO: use this.Content to load your game content here
+        TextureAtlas atlas = TextureAtlas.FromFile(Content, "images/atlas-definitions.xml");
 
-           _logo = Content.Load<Texture2D>("images/logo");
+        // retrieve the slime region from the atlas.
+        _slime = atlas.GetRegion("slime");
+
+        // retrieve the bat region from the atlas.
+        _bat = atlas.GetRegion("bat");
 
            base.LoadContent();
+
     }
 
     protected override void Update(GameTime gameTime)
@@ -49,25 +58,15 @@ public class Game1 : Core
         // TODO: Add your drawing code here
 
         // Begin the sprite batch to prepare for render.
-        SpriteBatch.Begin();
+        SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+  
+        // Draw the slime texture region at a scale of 4.0
+        _slime.Draw(SpriteBatch, Vector2.Zero, Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 0.0f);
 
-        // Draw the logo
-       SpriteBatch.Draw(
-        _logo,              // texture
-        new Vector2(        // position
-            Window.ClientBounds.Width,
-            Window.ClientBounds.Height) * 0.5f,
-        null,               // sourceRectangle
-        Color.White * 0.5f, // color
-        0.0f,               // rotation
-        new Vector2(        // origin
-            _logo.Width,
-            _logo.Height) * 0.5f,
-        1.0f,               // scale
-        SpriteEffects.None, // effects
-        0.0f
-    );
-    
+        // Draw the bat texture region 10px to the right of the slime at a scale of 4.0
+        _bat.Draw(SpriteBatch, new Vector2(_slime.Width * 4.0f + 10, 0), Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 1.0f);
+
+        // Always end the sprite batch when finished.
         SpriteBatch.End();
 
         base.Draw(gameTime);
