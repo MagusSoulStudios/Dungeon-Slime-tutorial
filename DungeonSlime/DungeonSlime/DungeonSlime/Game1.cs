@@ -10,9 +10,9 @@ namespace DungeonSlime;
 public class Game1 : Core
 {
     // define the slime sprite
-    private Sprite _slime;
+    private AnimatedSprite _slime;
     //defines the bat sprite
-    private Sprite _bat;
+    private AnimatedSprite _bat;
 
     public Game1() : base("Dungeon Slime", 1280, 720, false)
     {
@@ -30,10 +30,10 @@ public class Game1 : Core
         TextureAtlas atlas = TextureAtlas.FromFile(Content, "images/atlas-definitions.xml");
 
         // retrieve the slime region from the atlas.
-        _slime = atlas.CreateSprite("slime");
+        _slime = atlas.CreateAnimatedSprite("slime-animation");
 
         // retrieve the bat region from the atlas.
-        _bat = atlas.CreateSprite("bat");
+        _bat = atlas.CreateAnimatedSprite("bat-animation");
 
         //Scale the sprites to 4x
         _slime.Scale = Vector2.One * 4f;
@@ -48,7 +48,9 @@ public class Game1 : Core
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
+        ///Update the animations
+        _slime.Update(gameTime);
+        _bat.Update(gameTime);
 
         base.Update(gameTime);
     }
