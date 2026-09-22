@@ -417,9 +417,6 @@ public override void Draw(GameTime gameTime)
         Core.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
     }
 
-    // Begin the sprite batch to prepare for rendering.
-    Core.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
     // Draw the tilemap
     _tilemap.Draw(Core.SpriteBatch);
 
