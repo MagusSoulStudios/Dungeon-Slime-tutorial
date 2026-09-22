@@ -41,6 +41,14 @@
 /processorParam:Version=3.8.5.1
 /build:Audio/ui.wav
 
+#begin effects/grayscaleEffect.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/processorParam:Defines=
+/processorParam:Version=3.8.5.1
+/build:effects/grayscaleEffect.fx
+
 #begin fonts/04B_30_5x.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
